@@ -1,10 +1,23 @@
-# Changes
+# 🛠️ Installation & Setup  
 
-- Changed from Sponsors to Partners
-- Made it auto scrollable along with scrollable
-- Changed font to DM Sans ( font used in Allmax'd)
-- Changed Partners bg color to gray
-- Added Maker Village to the first list of Partners
-- Added Text based marqueue like Allmax'd
-- cant make it horzontally slidable because both the images are of different aspect ratios.
-- Added the top header with the ALTERSAGE logo
+Follow these steps to set up the project on your local machine:  
+
+1️⃣ **Clone the repository**  
+```sh
+git clone https://github.com/yourusername/alter-sage-website.git
+cd alter-sage-website
+```
+
+2️⃣ **Install dependencies**  
+```sh
+npm install
+```
+
+3️⃣ **Run the development server**  
+```sh
+npm run dev
+```
+
+4️⃣ **Open in Browser**  
+Visit `http://localhost:3000` to see the website live! 🚀  
+
