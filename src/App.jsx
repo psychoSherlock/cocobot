@@ -225,6 +225,26 @@ function App() {
           {/* Mobile Menu with blur effect */}
           {isMenuOpen && (
             <div className="md:hidden fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-black/90 h-screen">
+              <button
+                className="absolute top-6 right-6 text-white"
+                onClick={toggleMenu}
+                aria-label="Close menu"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
               <div className="flex flex-col space-y-6 p-8 mt-20">
                 <a
                   href="#vision"
@@ -359,7 +379,7 @@ function App() {
 
       {/* Marquee Section */}
       <div className="bg-[#1e1e1e] h-16 md:h-24 overflow-hidden whitespace-nowrap relative flex items-center">
-        <div className="flex absolute whitespace-nowrap animate-marquee">
+        <div className="flex absolute whitespace-nowrap animate-scrolling-text">
           <div className="flex space-x-4 md:space-x-12 text-white text-lg md:text-3xl font-medium mx-2 md:mx-4 items-center">
             <span>Agricultural Innovation</span>
             <span>•</span>
