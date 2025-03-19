@@ -126,13 +126,36 @@ function App() {
     sliderRef.current.scrollLeft = scrollLeft - distance;
   };
 
+  // Add touch event handlers for mobile devices
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    const touch = e.touches[0];
+    setStartX(touch.clientX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    const x = touch.clientX - sliderRef.current.offsetLeft;
+    const distance = (x - startX) * 2;
+    sliderRef.current.scrollLeft = scrollLeft - distance;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   return (
     <div className="bg-gradient-to-r from-black via-gray-900 to-black text-white min-h-screen">
       {/* Hero Section with gradient */}
       <header className="bg-gradient-to-r from-black via-gray-900 to-black text-white">
-        <div className="container mx-auto px-4 py-8 md:py-12">
-          <nav className="flex justify-between items-center mb-16 ">
-            <div className="text-2xl font-bold">Alter Sage Innovations</div>
+        <div className="container mx-auto px-4 py-4 md:py-8 lg:py-12">
+          <nav className="flex justify-between items-center mb-8 md:mb-16">
+            <div className="text-xl md:text-2xl font-bold">
+              Alter Sage Innovations
+            </div>
             <div className="hidden md:flex space-x-8">
               <a
                 href="#vision"
@@ -252,13 +275,13 @@ function App() {
       </header>
 
       <motion.div
-        className="max-w-4xl px-5 mx-20"
+        className="max-w-4xl px-4 md:px-5 mx-auto md:mx-20"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         <motion.h1
-          className="text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-gray-300 via-green-400 to-gray-100 bg-clip-text text-transparent"
+          className="text-3xl sm:text-4xl md:text-7xl font-bold mb-4 md:mb-8 bg-gradient-to-r from-gray-300 via-green-400 to-gray-100 bg-clip-text text-transparent"
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
@@ -266,11 +289,11 @@ function App() {
           Let's Explore the Future of Agricultural Robotics
         </motion.h1>
 
-        <p className="text-xl md:text-4xl mb-10 text-gray-300 font-poppins">
+        <p className="text-lg sm:text-xl md:text-4xl mb-6 md:mb-10 text-gray-300 font-poppins">
           With advanced robotics and AI, we're revolutionizing agriculture for a
           smarter, faster, and more sustainable future.
         </p>
-        <button className="bg-green-500 hover:bg-green-400 text-white px-10 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+        <button className="bg-green-500 hover:bg-green-400 text-white px-6 py-3 md:px-10 md:py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
           Learn More
         </button>
       </motion.div>
@@ -278,7 +301,7 @@ function App() {
       {/* About Us Section */}
       <motion.section
         id="vision"
-        className="py-20 md:py-28 100 flex justify-center items-center"
+        className="py-12 md:py-20 lg:py-28 flex justify-center items-center"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -286,7 +309,7 @@ function App() {
       >
         <div className="container mx-auto px-4">
           <motion.div
-            className="max-w-3xl mx-auto  shadow-2xl rounded-xl p-8 md:p-12 border border-gray-200 relative overflow-hidden"
+            className="max-w-3xl mx-auto shadow-2xl rounded-xl p-5 md:p-8 lg:p-12 border border-gray-200 relative overflow-hidden"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -309,7 +332,7 @@ function App() {
 
             {/* Heading with Animation */}
             <motion.h2
-              className="text-3xl md:text-4xl font-bold text-center text-gray-200"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-200"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -319,7 +342,7 @@ function App() {
 
             {/* Animated Paragraph */}
             <motion.p
-              className="text-lg md:text-xl leading-relaxed text-gray-200 text-center mt-6 px-2 md:px-6"
+              className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 text-center mt-4 md:mt-6 px-1 md:px-6"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
@@ -335,9 +358,9 @@ function App() {
       </motion.section>
 
       {/* Marquee Section */}
-      <div className="bg-[#1e1e1e] h-24 overflow-hidden whitespace-nowrap relative flex items-center">
+      <div className="bg-[#1e1e1e] h-16 md:h-24 overflow-hidden whitespace-nowrap relative flex items-center">
         <div className="flex absolute whitespace-nowrap animate-marquee">
-          <div className="flex space-x-12 text-white text-3xl font-medium mx-4 items-center">
+          <div className="flex space-x-4 md:space-x-12 text-white text-lg md:text-3xl font-medium mx-2 md:mx-4 items-center">
             <span>Agricultural Innovation</span>
             <span>•</span>
             <span>Robotic Solutions</span>
@@ -358,7 +381,7 @@ function App() {
             <span>•</span>
             <span>Eco-Friendly Solutions</span>
           </div>
-          <div className="flex space-x-12 text-white text-3xl font-medium mx-4 items-center">
+          <div className="flex space-x-4 md:space-x-12 text-white text-lg md:text-3xl font-medium mx-2 md:mx-4 items-center">
             <span>Agricultural Innovation</span>
             <span>•</span>
             <span>Robotic Solutions</span>
@@ -385,7 +408,7 @@ function App() {
       {/* Our Mission Section */}
       <motion.section
         id="about"
-        className="py-16 md:py-24 50 flex justify-center items-center"
+        className="py-10 md:py-16 lg:py-24 flex justify-center items-center"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -394,7 +417,7 @@ function App() {
         <div className="container mx-auto px-4">
           {/* Animated Heading */}
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center text-gray-200 mb-12"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-200 mb-8 md:mb-12"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -404,7 +427,7 @@ function App() {
 
           {/* Mission Card */}
           <motion.div
-            className="max-w-3xl mx-auto  shadow-lg rounded-xl p-8 md:p-12 border border-gray-200 relative overflow-hidden"
+            className="max-w-3xl mx-auto shadow-lg rounded-xl p-5 md:p-8 lg:p-12 border border-gray-200 relative overflow-hidden"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -427,7 +450,7 @@ function App() {
 
             {/* Mission Text */}
             <motion.p
-              className="text-lg md:text-xl leading-relaxed text-gray-200 text-center"
+              className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 text-center"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
@@ -450,43 +473,49 @@ function App() {
       {/* Partners Section with improved animation */}
       <motion.section
         id="Partners"
-        className="mt-20 md:mt-10 50 text-white"
+        className="mt-10 md:mt-20 text-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeIn}
         transition={{ duration: 0.8 }}
       >
-        <div className=" mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-16 text-center">Our Partners</h2>
+        <div className="mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 md:mb-16 text-center">
+            Our Partners
+          </h2>
           <div
-            className="relative h-40 md:h-48 overflow-hidden cursor-grab active:cursor-grabbing"
+            className="relative h-32 md:h-40 lg:h-48 overflow-hidden cursor-grab active:cursor-grabbing"
             ref={sliderRef}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             onMouseMove={handleMouseMove}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <div
-              className="flex justify-center items-center space-x-24 transition-transform duration-1000 ease-in-out"
+              className="flex justify-center items-center space-x-8 md:space-x-16 lg:space-x-24 transition-transform duration-1000 ease-in-out"
               style={{ transform: `translateX(-${currentImage * 25}%)` }}
             >
               {[...Array(4)].map(() =>
                 sponsorImages.map((image, index) => (
                   <div
-                    className="min-w-64 min-h-32  border-2 p-5
-                                flex items-center justify-center
-                                bg-white backdrop-blur-5xl rounded-3xl"
+                    key={`partner-${index}`}
+                    className="min-w-40 md:min-w-56 lg:min-w-64 min-h-24 md:min-h-32 border-2 p-3 md:p-5
+                              flex items-center justify-center
+                              bg-white backdrop-blur-5xl rounded-2xl md:rounded-3xl"
                   >
                     <img
                       key={index}
                       src={image}
                       alt={`Sponsor ${index + 1}`}
-                      className="h-32 md:h-32  transition-opacity duration-300 select-none object-contain"
+                      className="h-20 md:h-32 transition-opacity duration-300 select-none object-contain"
                       draggable="false"
                     />
                   </div>
-                )),
+                ))
               )}
             </div>
           </div>
@@ -496,7 +525,7 @@ function App() {
       {/* Achievements Section */}
       <motion.section
         id="achievements"
-        className="py-16 md:pt-10 text-white "
+        className="py-10 md:py-16 text-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -504,22 +533,22 @@ function App() {
       >
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-bold mb-16 text-center"
+            className="text-3xl md:text-4xl font-bold mb-8 md:mb-16 text-center"
             variants={fadeIn}
           >
             Our Achievements
           </motion.h2>
-          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="grid gap-8 md:gap-12 max-w-6xl mx-auto">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={index}
-                className="group  border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                className="group border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 variants={fadeIn}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <div
-                  className="relative w-full h-64 overflow-hidden cursor-pointer"
+                  className="relative w-full h-48 md:h-64 overflow-hidden cursor-pointer"
                   onClick={() => handleImageClick(achievement.image)}
                 >
                   <img
@@ -529,11 +558,11 @@ function App() {
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-4 text-gray-100">
+                <div className="p-4 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-4 text-gray-100">
                     {achievement.title}
                   </h3>
-                  <p className="text-gray-200 text-lg leading-relaxed">
+                  <p className="text-gray-200 text-base md:text-lg leading-relaxed">
                     {achievement.description}
                   </p>
                 </div>
@@ -553,7 +582,7 @@ function App() {
       {/* Team Section with hover effects */}
       <motion.section
         id="team"
-        className="py-20 md:py-16 50"
+        className="py-10 md:py-16 lg:py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -561,33 +590,35 @@ function App() {
       >
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-bold mb-16 text-center"
+            className="text-3xl md:text-4xl font-bold mb-8 md:mb-16 text-center"
             variants={fadeIn}
           >
             Our Team
           </motion.h2>
           <div className="flex justify-center items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12 max-w-6xl">
               {team.map((member, index) => (
                 <motion.div
                   key={index}
-                  className="flex flex-col items-center justify-center text-center  shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                  className="flex flex-col items-center justify-center text-center shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                   variants={fadeIn}
                   whileHover={{ y: -8 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="w-full h-56">
+                  <div className="w-full h-48 md:h-56">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover rounded-t-lg transition duration-300"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-2xl font-semibold mb-2">
+                  <div className="p-4 md:p-6">
+                    <h3 className="text-xl md:text-2xl font-semibold mb-1 md:mb-2">
                       {member.name}
                     </h3>
-                    <p className="text-gray-600 text-lg">{member.title}</p>
+                    <p className="text-gray-600 text-base md:text-lg">
+                      {member.title}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -599,23 +630,23 @@ function App() {
       {/* Footer with gradient */}
       <motion.footer
         id="contact"
-        className="bg-gradient-to-b from-black to-gray-900 text-white py-16"
+        className="bg-gradient-to-b from-black to-gray-900 text-white py-10 md:py-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeIn}
       >
-        <div className=" mx-auto px-4">
-          <div className="flex justify-between mx-10">
+        <div className="mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between md:mx-10 space-y-8 md:space-y-0">
             <div className="text-center flex flex-col items-center justify-center">
               <h3 className="text-xl font-bold mb-4">Alter Sage Innovations</h3>
             </div>
-            <div className="text-right">
+            <div className="text-center md:text-right">
               <h3 className="text-xl font-bold mb-4">Contact Us</h3>
 
               <p className="mb-2">Phone: 9847429917</p>
               <p>Email: altersageinnovations@gmail.com</p>
-              <p className="mb-2 w-7xl">
+              <p className="mb-2 max-w-xs md:max-w-md mx-auto md:mx-0">
                 Top Floor, Computer Centre Building, IIMK Campus, PO, Kozhikode,
                 Kerala 673570
               </p>
